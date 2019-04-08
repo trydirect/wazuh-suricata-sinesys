@@ -1,0 +1,1 @@
+0 0 * * * /opt/letsencrypt/letsencrypt-auto --nginx --renew
