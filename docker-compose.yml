@@ -9,7 +9,7 @@ services:
       .env
     ports:
       - "80:80"
-      - "443:443
+      - "443:443"
     volumes:
       - ./certs/ssl:/etc/ssl/nginx
       - ./certs/letsencrypt:/etc/letsencrypt
@@ -67,7 +67,6 @@ services:
       - ./log:/var/log/suricata
       - ./synlite_suricata:/usr/share/logstash/synlite_suricata
       - ./jvm.options:/usr/share/logstash/config/jvm.options
-     # - ./logstash:/usr/share/logstash/pipeline
 
   elasticsearch:
     #image: wazuh/wazuh-elasticsearch
@@ -75,7 +74,7 @@ services:
     hostname: elasticsearch
     restart: always
     ports:
-      - "9200:9200"
+      - "127.0.0.1:9200:9200"
     environment:
       - node.name=node-1
       - cluster.name=wazuh
@@ -114,19 +113,3 @@ services:
     volumes:
       - ./log:/var/log/suricata
     entrypoint: /etc/entrypoint.sh
-
-
-  # agent:
-  #   image: ${REGISTRY}optimum/try.direct:agent
-  #   container_name: trydirect_agent
-  #   ports:
-  #     - "5001:5001"
-  #   volumes:
-  #     - ./nginx:/app/destination_conf
-  #     - ./nginx_original:/app/origin_conf
-  #     - ./config.json:/app/config.json
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   env_file:
-  #     .env
-  #   restart: always
-
